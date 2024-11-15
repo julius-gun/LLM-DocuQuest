@@ -1,0 +1,119 @@
+PDF Analysis Results
+====================
+
+Model: llama3.2:1b
+--------------------------------------------------
+Question: At which flowrate of fertilizer in kg/min is it advised to use the fine application?
+Expected Answer: ['40kg/min', 67]
+Model Response: Based on the provided context, I am very sure that at a flowrate of 40 kg/min or more, it is advised to use the fine application. According to the text, "With a low application rate and/or a low driving speed the dosing openings are only opened a slight bit so that  very little fertiliser would stream through the dosing openings of the spreader."
+Time taken: 34.03 seconds
+
+Question: What is the maximum operating angle of the coupling shaft?
+Expected Answer: ['30 degrees', 54]
+Model Response: Based on the provided context, the maximum operating angle of the coupling shaft is 30 degrees when lifted and 30 degrees when lowered.
+Time taken: 16.74 seconds
+
+Question: What materials are required to perform the tray test?
+Expected Answer: ["You'll need a measuring tape or ruler, a spirit level, 7 troughs, 7 graduated tubes, a funnel, a notebook, pen, calculator, this manual, and the software's instruction manual.", 77]
+Model Response: Based on the context, you need measuring tape or ruler, a spirit level, 7 troughs, 7 graduated tubes, a funnel, a notebook, pen, and calculator. Additionally, the instruction manual of the software is mentioned, but it's not clear if this includes all necessary materials.
+Time taken: 26.84 seconds
+
+Question: What is the general formula for calculating the required flowrate of fertilizer in kg/min?
+Expected Answer: ['Working width (m) x Driving speed (km/h) x Application rate (kg/ha) / 600', 68]
+Model Response: Based on the provided context, I am very sure that the correct formula to calculate the required flowrate of fertilizer in kg/min is:
+
+600flowrate required (kg/min) = Working width (m) x Driving speed (km/h) x Application rate (kg/ha)
+
+This formula takes into account the factors mentioned in the context, such as the working width and driving speed, and converts them to a common unit (kg/ha).
+Time taken: 29.77 seconds
+
+
+Model: llama3.2
+--------------------------------------------------
+Question: At which flowrate of fertilizer in kg/min is it advised to use the fine application?
+Expected Answer: ['40kg/min', 67]
+Model Response: According to the context, it is advised to make use of the "fine application" if the flowrate is less than 40 kg/min.
+Time taken: 60.90 seconds
+
+Question: What is the maximum operating angle of the coupling shaft?
+Expected Answer: ['30 degrees', 54]
+Model Response: The relevant sentence that answers the question is:
+
+"The maximum operating angle of the coupling shaft is 30° when lifted and 30° when lowered."
+Time taken: 41.41 seconds
+
+Question: What materials are required to perform the tray test?
+Expected Answer: ["You'll need a measuring tape or ruler, a spirit level, 7 troughs, 7 graduated tubes, a funnel, a notebook, pen, calculator, this manual, and the software's instruction manual.", 77]
+Model Response: According to the context, the following materials are required to perform the tray test:
+
+1. Measuring tape or ruler
+2. Spirit level to set the troughs horizontal
+3. 7 troughs
+4. 7 graduated tubes
+5. 1 funnel
+6. Notebook, pen and calculator
+Time taken: 61.53 seconds
+
+Question: What is the general formula for calculating the required flowrate of fertilizer in kg/min?
+Expected Answer: ['Working width (m) x Driving speed (km/h) x Application rate (kg/ha) / 600', 68]
+Model Response: The relevant sentence from the context that answers the question is:
+
+"flowrate required (kg/min) = Working width (m) x Driving speed (km/h) x Application rate (kg/ha)"
+Time taken: 56.96 seconds
+
+
+Model: llama3.1
+--------------------------------------------------
+Question: At which flowrate of fertilizer in kg/min is it advised to use the fine application?
+Expected Answer: ['40kg/min', 67]
+Model Response: According to the context, it is advised to use the fine application if the flowrate is less than 40 kg/min. 
+
+The relevant sentence is:
+"We therefore advise that you make use of the fine application if the flowrate is less than 40 kg/min."
+Time taken: 186.31 seconds
+
+Question: What is the maximum operating angle of the coupling shaft?
+Expected Answer: ['30 degrees', 54]
+Model Response: Based on the context, the relevant sentence that answers the question is:
+
+"The maximum operating angle of the coupling shaft is 30° when lifted and 30° when lowered."
+
+So, the answer to the question is: The maximum operating angle of the coupling shaft is 30° (when lifted) and 30° (when lowered).
+Time taken: 135.42 seconds
+
+Question: What materials are required to perform the tray test?
+Expected Answer: ["You'll need a measuring tape or ruler, a spirit level, 7 troughs, 7 graduated tubes, a funnel, a notebook, pen, calculator, this manual, and the software's instruction manual.", 77]
+Model Response: Here is the relevant sentence from the context:
+
+"Material required
+•measuring tape or ruler,
+•spirit level to set the troughs horizontal,
+•7 troughs,
+•7 graduated tubes,
+•1 funnel,
+•notebook, pen and calculator,
+•this manual.
+•the instruction manual of the software."
+
+Based on this information, I am very sure that the following materials are required to perform the tray test:
+
+* Measuring tape or ruler
+* Spirit level to set the troughs horizontal
+* 7 troughs
+* 7 graduated tubes
+* 1 funnel
+* Notebook, pen and calculator
+* This manual (presumably for reference)
+* The instruction manual of the software
+Time taken: 222.78 seconds
+
+Question: What is the general formula for calculating the required flowrate of fertilizer in kg/min?
+Expected Answer: ['Working width (m) x Driving speed (km/h) x Application rate (kg/ha) / 600', 68]
+Model Response: The relevant sentence that answers the question is:
+
+"flowrate required (kg/min) = Working width (m) x Driving speed (km/h) x Application rate (kg/ha)"
+
+This sentence provides the general formula for calculating the required flowrate of fertilizer in kg/min.
+Time taken: 178.12 seconds
+
+
