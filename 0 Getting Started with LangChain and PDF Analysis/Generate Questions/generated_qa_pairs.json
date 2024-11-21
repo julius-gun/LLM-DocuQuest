@@ -1,0 +1,154 @@
+{
+    "How many dosing openings are used in the fine application setting of the spreader, and how does this compare to the normal dosing setting?": [
+        "Two of the three dosing openings are closed during fine application, leaving one open.  Normal dosing utilizes all three openings.",
+        24
+    ],
+    "What is the maximum acceptable overlap percentage for a trapezoidal spreading pattern with the GEOSPREAD system?": [
+        "Less than 100%",
+        25
+    ],
+    "How is working width reduction visually represented on the main screen when using GEOCONTROL?": [
+        "By progressively removing portions of the black triangles representing the sections, and displaying the updated working width.",
+        26
+    ],
+    "What is the maximum number of measuring points used for a rate map when using the MULTIRATE functionality on an ISOBUS weighing spreader?": [
+        "8 measuring points",
+        27
+    ],
+    "What percentage of overlap is achieved with a full field spreading pattern?": [
+        "100%",
+        28
+    ],
+    "If a tractor lacks an ISOBUS connection, what hardware can be obtained from the dealer to enable connection with ISOBUS machines like this spreader?": [
+        "The universal IsoMatch terminal.",
+        30
+    ],
+    "How frequently does the spreader perform automatic calibration tests, and what are the two criteria that trigger these tests?": [
+        "The spreader performs automatic calibration tests every 75 kg of fertilizer spread or every minute, whichever comes first.",
+        31
+    ],
+    "How can the tractor's driving speed be transmitted to the IsoMatch if the tractor lacks ISOBUS communication?": [
+        "By adding the IsoMatch power cable set to the tractor.",
+        32
+    ],
+    "What are two examples of applications that can be run simultaneously on the split screen of the IsoMatch universal ISOBUS terminal?": [
+        "The main screen of the machine and a separate operating program.",
+        33
+    ],
+    "How long should the main switch button (located on the upper left in the red extension) be pressed to turn the control box on or off?": [
+        "At least 1 second.",
+        34
+    ],
+    "After initial setup and after any maintenance or repairs, how long should the machine be operated before re-checking all nuts and bolts?": [
+        "1 hour",
+        38
+    ],
+    "How many plugs should be connected to the tractor's CAN connection when using an IsoMatch or other loose-standing ISO-control box with a tractor equipped with the ISOBUS communication system?": [
+        "1 plug",
+        39
+    ],
+    "How should the console foot be mounted if no suitable mounting location exists in the cabin?": [
+        "A footplate should be made and welded to the pipe for the console foot.",
+        40
+    ],
+    "How many plugs are on the side of the CAN cable that connects to the IsoMatch control box when using an ISO tractor?": [
+        "2 plugs",
+        41
+    ],
+    "What components are included with the hopper extension?": [
+        "2 long sides, 2 short sides, 4 corner parts, 4 caps, and fixing material.",
+        42
+    ],
+    "What determines the working width of the spreading machine?": [
+        "The RPM of the spreading disc.",
+        46
+    ],
+    "Where should the position sensor for the hydraulic border spreading plate be connected?": [
+        "In the electronic box on the spreader.",
+        47
+    ],
+    "When mounting the support for the calibration container, how far back should the bolts on the turning rod be turned?": [
+        "5 mm",
+        48
+    ],
+    "What category of three-point power lift is required for the tractor, and what is required if the tractor has a Cat. 3 or Cat. 4 power lift?": [
+        "The tractor must be equipped with a Cat. 2 three-point power lift.  If the tractor has a Cat. 3 or Cat. 4 power lift, a linkage frame (optional extra) is required.",
+        49
+    ],
+    "What specific precaution should be taken before working between the tractor and machine to check the coupling shaft length, and why?": [
+        "Place the machine on a supporting beam to prevent it from dropping and potentially causing serious injury if the power lift is inadvertently operated.",
+        50
+    ],
+    "What is the maximum permissible operating angle for the coupling shaft, both when lifted and lowered?": [
+        "30\u00b0",
+        54
+    ],
+    "How should the control box be connected to the tractor's ISOBUS network?": [
+        "Connect an ISO plug with both CAN plugs on one side to the back of the control box, and connect the single CAN plug on the other side of the cable to the tractor's ISOBUS network connection. If the tractor has a tractor ECU, remove its CAN plug from the control box.",
+        55
+    ],
+    "What should be checked after connecting the machine to the tractor, and what action may be required?": [
+        "The machine should be checked for level and adjusted horizontally if needed using the lift rod and top link adjustments.",
+        56
+    ],
+    "What three physical properties of fertilizer must be determined to select the correct spreading chart?": [
+        "Type and pattern of granules, distribution (composition of granules of various sizes), and similar weight.",
+        57
+    ],
+    "What are the diameter ranges used by the distribution meter to classify fertilizer granules?": [
+        "Less than 2.0 mm, 2.0 - 3.3 mm, 3.3 - 4.75 mm, and greater than 4.75 mm.",
+        59
+    ],
+    "What specific precautions should be taken before filling, adjusting, or testing the spreader to prevent jamming and ensure safety?": [
+        "Switch the tractor off, remove the ignition keys, engage the parking brake, wait for all machine parts to stop moving, and never go under an elevated, unsecured spreader.",
+        62
+    ],
+    "What is the application rate of OCI Agro2 MM fertilizer in kg/ha when traveling at 7 km/h and using a spreader speed of 525 rpm?": [
+        "262 kg/ha",
+        63
+    ],
+    "How can the working width of the spreader be adjusted?": [
+        "By selecting the correct connection point for the coupling shaft (with the PTO speed) and the discharge point.",
+        64
+    ],
+    "When using GEOCONTROL and the spreader inclination is set to 4\u00b0 or 8\u00b0, how should the length B value in the machine data screen be adjusted?": [
+        "Increase length B by 10% at 4\u00b0 and 20% at 8\u00b0.",
+        65
+    ],
+    "When using automatic calibration to determine the dosing setting for a constant application rate, what potential issue exists with the second automatic calibration and what is the recommended practice to mitigate this issue?": [
+        "The application rate for the second automatic calibration (approximately 2 minutes) could differ markedly from the selected application rate. It is recommended to use starting values from the spreading charts in the \u2018Curve Calibration\u2019 screen.",
+        66
+    ],
+    "If the desired application rate of Nutramon is 25 kg/ha with a working width of 27 meters and a driving speed of 8 km/h, what is the required flowrate?": [
+        "9 kg/min",
+        70
+    ],
+    "How long should the spreader run to 'rinse' the calibration container before beginning the calibration test?": [
+        "5 seconds",
+        71
+    ],
+    "What type of serial connection is used for communication between the spreader's control system and the IsoMatch control box, and where is it located on the control box?": [
+        "An RS 232 connection located at the back of the IsoMatch control box.",
+        72
+    ],
+    "What is the recommended practice regarding tractor cabin configuration when spreading fertilizer?": [
+        "Always work with a closed cabin with active carbon filters in the air inlets.",
+        73
+    ],
+    "When loading the spreader manually or with large bags, what is the maximum distance allowed between the hopper rim and the ground before a load platform becomes mandatory?": [
+        "1250 mm",
+        74
+    ],
+    "When preparing the spreader for the spreading pattern test, at what distance apart should the troughs be placed to the right of the tractor tracks?": [
+        "4 meters",
+        78
+    ],
+    "What is the minimum recommended application rate when spreading, and what unit is it measured in?": [
+        "250 kg/ha",
+        79
+    ],
+    "What is the maximum acceptable percentage difference between the left and right spreading disc measurements before further adjustments are required?": [
+        "3%",
+        80
+    ]
+}
