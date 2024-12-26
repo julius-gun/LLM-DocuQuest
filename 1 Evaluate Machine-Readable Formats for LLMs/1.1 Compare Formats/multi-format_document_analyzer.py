@@ -16,6 +16,8 @@ import time
 import traceback
 import matplotlib.pyplot as plt
 
+from transformers import AutoTokenizer
+
 
 def generate_visualization_data(consolidated_results):
     """
@@ -171,20 +173,21 @@ class MultiFormatDocumentAnalyzer:
         # logging.basicConfig(level=logging.INFO)
         logging.basicConfig(level=logging.DEBUG)
         self.logger = logging.getLogger(__name__)
-        
+
         # Set up LLM model configurations
         self.temperature = 0
-        self.context_window = 131072
-        
+        MAX_CONTEXT_WINDOW = 131072
+        self.context_window = MAX_CONTEXT_WINDOW
+        self.max_tokens = 256
         # Remove model initialization from __init__
         self.model_configs = {
             "llama3.2:1b": {"name": "llama3.2:1b"},
             "llama3.2": {"name": "llama3.2"},
             "llama3.1": {"name": "llama3.1"},
             "phi3:mini-128k": {"name": "phi3:mini-128k"},
-            "phi3:medium-128k": {"name": "phi3:medium-128k"}
+            "phi3:medium-128k": {"name": "phi3:medium-128k"},
         }
-        self.evaluater_model = "gemma2:9b"
+        self.evaluater_model = "gemma2:latest"
         # Configure LLM models
         # self.models = {
         #     "llama3.2:1b": OllamaLLM(model="llama3.2:1b", temperature=temperature),
@@ -213,13 +216,23 @@ class MultiFormatDocumentAnalyzer:
         questions_file = r"C:\llm\manual_reader\question_answer_pairs.json"
         self.questions_and_answers = self._load_questions(questions_file)
         # print("self.questions_and_answers: ", self.questions_and_answers)
+
     def _create_fresh_model(self, model_name: str) -> OllamaLLM:
         """Create a new instance of the model with fresh context."""
-        return OllamaLLM(model=self.model_configs[model_name]["name"], temperature=self.temperature, num_ctx=self.context_window)
+        return OllamaLLM(
+            model=self.model_configs[model_name]["name"],
+            temperature=self.temperature,
+            num_ctx=self.context_window,
+            max_tokens=self.max_tokens,
+        )
 
     def _create_fresh_evaluator(self) -> OllamaLLM:
         """Create a new instance of the evaluator model with fresh context."""
-        return OllamaLLM(model=self.evaluater_model, temperature=self.temperature)
+        return OllamaLLM(
+            model=self.evaluater_model,
+            temperature=self.temperature,
+            max_tokens=self.max_tokens,
+        )
 
     def _setup_prompt_templates(self):
         """Setup prompt templates for analysis and evaluation."""
@@ -433,16 +446,16 @@ class MultiFormatDocumentAnalyzer:
     ) -> str:
         """
         Get content for pages around the target page or full document.
-        
+
         Args:
         - pages: List of page dictionaries
         - target_page: The page number of the target page
         - context_pages: Number of pages to include before and after target page, or 'full document' for full document
-        
+
         Returns:
         - Concatenated content of context pages
         """
-        if context_pages == 'full document':
+        if context_pages == "full document":
             # Return full document content
             return "\n\n".join(f"[{page['page']}] {page['content']}" for page in pages)
         context_content = []
@@ -473,18 +486,24 @@ class MultiFormatDocumentAnalyzer:
         pages = self.load_document()
 
         # keep track of total tasks and completed tasks
-        total_tasks = len(context_pages_list) * len(self.model_configs) * len(self.questions_and_answers)
+        total_tasks = (
+            len(context_pages_list)
+            * len(self.model_configs)
+            * len(self.questions_and_answers)
+        )
         completed_tasks = 0
 
         # print(pages) # Debugging //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         # Iterate through different context page configurations
         for context_pages in context_pages_list:
-            context_desc = "full document" if context_pages == 'full document' else f"{context_pages} pages"
-
-            self.logger.info(
-                f"Testing with {context_desc} of context"
+            context_desc = (
+                "full document"
+                if context_pages == "full document"
+                else f"{context_pages} pages"
             )
+
+            self.logger.info(f"Testing with {context_desc} of context")
 
             for model_name in self.model_configs:
                 self.logger.info(f"Evaluating model: {model_name}")
@@ -494,7 +513,9 @@ class MultiFormatDocumentAnalyzer:
                     + f"/analysis_context_robustness_{self.file_extension}"
                 )
                 os.makedirs(result_path, exist_ok=True)
-                context_identifier = "full" if context_pages == -1 else str(context_pages)
+                context_identifier = (
+                    "full" if context_pages == -1 else str(context_pages)
+                )
                 result_file = f"{result_path}/{model_name.replace(':', '_')}_results_{context_identifier}_pages_context.json"
 
                 # Load existing results if the file exists
@@ -514,91 +535,114 @@ class MultiFormatDocumentAnalyzer:
                         continue
 
                     try:
-                        # Create fresh model instances for each question
-                        current_model = self._create_fresh_model(model_name)
-                        current_evaluator = self._create_fresh_evaluator()
-
                         target_page = expected_answer[1]  # Actual page number
                         # print("target_page: ", target_page)
                         page_content = self.get_context_around_page(
                             pages, target_page, context_pages
                         )
-                        # # append the page_content to a separate txt file, stating the current extension and the context pages
-                        # with open(
-                        #     f"{result_path}/{self.file_extension}_{context_pages}_pages_context.txt",
-                        #     "a",
-                        #     encoding="utf-8",
-                        # ) as file:
-                        #     file.write(page_content + "\n\n")
+
+                        # tokenize the page_content
+                        tokenizer = AutoTokenizer.from_pretrained(
+                            "pcuenq/Llama-3.2-1B-Instruct-tokenizer"
+                        )
                         prompt = self.prompt_template.format(
                             context=page_content, question=question
                         )
+                        messages = [{"role": "user", "content": page_content}]
+                        tokens = tokenizer.apply_chat_template(messages, tokenize=False)
+                        # tokens = tokenizer.apply_chat_template(page_content)
+                        token_length_window = len(tokens) + 256 # add some buffer
+                        print("token window: ", len(tokens))
+                        if token_length_window > 131072:
+                            print("token window exceeds 131072 tokens: ", len(tokens))
+                            token_length_window = 131072
+                        self.context_window = token_length_window
+                        try:
+                            start_time = time.time()
+                            # Create fresh model instances for each question
+                            current_model = self._create_fresh_model(model_name)
+                            current_evaluator = self._create_fresh_evaluator()
 
-                        start_time = time.time()
-                        response = current_model.invoke(prompt)
-                        end_time = time.time()
+                            response = current_model.invoke(prompt)
 
-                        eval_prompt = self.evaluation_template.format(
-                            question=question,
-                            model_answer=response,
-                            expected_answer=expected_answer[0],
-                        )
+                            eval_prompt = self.evaluation_template.format(
+                                question=question,
+                                model_answer=response,
+                                expected_answer=expected_answer[0],
+                            )
 
-                        self_evaluation = (
-                            current_evaluator.invoke(eval_prompt).strip().lower()
-                        )
+                            self_evaluation = (
+                                current_evaluator.invoke(eval_prompt).strip().lower()
+                            )
+                            end_time = time.time()
 
-                        result = {
-                            "context_pages": context_pages,
-                            "question": question,
-                            "expected_answer": expected_answer,
-                            "response": response,
-                            "time_taken": end_time - start_time,
-                            "self_evaluation": self_evaluation,
-                        }
-
-                        model_results.append(result)
-
-                        # Save results to file after each answer
-                        with open(result_file, "w", encoding="utf-8") as file:
-                            json.dump(model_results, file, indent=4, ensure_ascii=False)
-
-                        # Print detailed information
-                        # print(f"Context Pages: {context_pages}")
-                        # print(f"Question: {question}")
-                        # print(f"Expected Answer: {result['expected_answer'][0]}\n")
-                        # print(f"Model Response: {response}")
-                        # print(f"Self-Evaluation (Correct?): {self_evaluation}\n")
-
-                        # # Calculate and print current accuracy
-                        accuracy, correct_answers, total_questions = (
-                            self.calculate_accuracy(model_results)
-                        )
-                        print(
-                            f"Current Accuracy: {accuracy:.1f}% ({correct_answers} out of {total_questions} questions answered correctly)"
-                        )
-                    except Exception as e:
-                        self.logger.error(
-                            f"Error with model {model_name} on question: {question}"
-                        )
-                        self.logger.error(str(e))
-                        model_results.append(
-                            {
+                            result = {
                                 "context_pages": context_pages,
                                 "question": question,
                                 "expected_answer": expected_answer,
-                                "response": f"Error: {str(e)}",
-                                "time_taken": None,
-                                "self_evaluation": "error",
+                                "response": response,
+                                "time_taken": end_time - start_time,
+                                "self_evaluation": self_evaluation,
                             }
-                        )
-                    # Update completed tasks and print progress
-                    completed_tasks += 1
-                    progress_percentage = (completed_tasks / total_tasks) * 100
-                    print(f"Progress: {progress_percentage:.2f}%")
-                    # Explicitly delete model instances to ensure clean context
-                    del current_model
-                    del current_evaluator
+
+                            model_results.append(result)
+
+                            # Save results to file after each answer
+                            with open(result_file, "w", encoding="utf-8") as file:
+                                json.dump(
+                                    model_results, file, indent=4, ensure_ascii=False
+                                )
+
+                            # Print detailed information
+                            # print(f"Context Pages: {context_pages}")
+                            # print(f"Question: {question}")
+                            # print(f"Expected Answer: {result['expected_answer'][0]}\n")
+                            # print(f"Model Response: {response}")
+                            # print(f"Self-Evaluation (Correct?): {self_evaluation}\n")
+
+                            # # Calculate and print current accuracy
+                            accuracy, correct_answers, total_questions = (
+                                self.calculate_accuracy(model_results)
+                            )
+                            # if self_evaluation is not 'yes' the question and response given should be printed
+                            if self_evaluation != "yes":
+                                print(f"Question: {question}")
+                                print(
+                                    f"Expected Answer: {result['expected_answer'][0]}\n"
+                                )
+                                print(f"Model Response: {response}")
+
+                            print(
+                                f"Current Accuracy: {accuracy:.1f}% ({correct_answers} out of {total_questions} questions answered correctly)"
+                            )
+
+                        except Exception as e:
+                            self.logger.error(
+                                f"Error with model {model_name} on question: {question}"
+                            )
+                            self.logger.error(str(e))
+                            # model_results.append(
+                            #     {
+                            #         "context_pages": context_pages,
+                            #         "question": question,
+                            #         "expected_answer": expected_answer,
+                            #         "response": f"Error: {str(e)}",
+                            #         "time_taken": None,
+                            #         "self_evaluation": "error",
+                            #     }
+                            # )
+                            # hold the code execution
+                            raise e
+                        # Update completed tasks and print progress
+                        completed_tasks += 1
+                        progress_percentage = (completed_tasks / total_tasks) * 100
+                        print(f"Progress: {progress_percentage:.2f}%")
+                    finally:
+                        # Explicitly delete model instances to ensure clean context
+                        if "current_model" in locals():
+                            del current_model
+                        if "current_evaluator" in locals():
+                            del current_evaluator
 
                 # Calculate and print current accuracy after all questions
                 accuracy, correct_answers, total_questions = self.calculate_accuracy(
@@ -703,7 +747,8 @@ def main():
         logger.debug(f"Path exists: {os.path.exists(path)}")
 
     # Specify different context page configurations to test
-    context_pages_list = [0, 1, 3, 5, 'full document']
+    # context_pages_list = ["full document"] # Full document context is almost 250k tokens
+    context_pages_list = [0, 1, 3, 5]
 
     # Consolidated results
     consolidated_results = {}

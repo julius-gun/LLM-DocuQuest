@@ -16,7 +16,7 @@ This repository explores the capabilities of large language models (LLMs) in han
 - **Multiple Pages Context**
 - **Automatic Q&A**: Generate questions and answers from PDFs using Ollama and Gemini. -->
 ### Goal 1: Evaluate Machine-Readable Formats
-- **Test Set**: Analyze 44 curated question-answer pairs.
+- **Test Set**: Analyze [44 curated question-answer pairs](/1%20Evaluate%20Machine-Readable%20Formats%20for%20LLMs/question_answer_pairs.json).
 - **Format Comparison**: Evaluate PDF, Markdown, CSV, XML, YAML, and JSON with various LLMs.
 - **Zero-Shot Learning**: Assess model performance without prior fine-tuning.
 <!-- - **Format Suitability**: Identify the best format for each model based on response accuracy. -->
