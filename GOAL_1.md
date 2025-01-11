@@ -21,7 +21,11 @@ The manual being used can be downloaded [here](https://www.kvgportal.com/W_globa
 
 ###    **[LLM Document Analyzer:](/1%20Evaluate%20Machine-Readable%20Formats%20for%20LLMs/1.1%20Compare%20Formats/multi-format_document_analyzer.py)**
 *   Utilizes the `langchain_ollama` library to interact with Ollama models.
-*   Uses a set of pre-defined [questions and expected answers related to the manual](/1%20Evaluate%20Machine-Readable%20Formats%20for%20LLMs/question_answer_pairs.json).
+*   Uses a set of pre-defined questions and expected answers related to the manual
+    - [44 general question-answer pairs](/questions_answers/question_answer_pairs.json).
+    - [20 unanswerable question-answer pairs](/questions_answers/question_answers_unanswerable.json)
+    - [10 question-answer pairs regarding tables](/questions_answers/question_answers_tables.json)
+
 *   Prompts LLMs with questions about the manual, providing varying amounts of context (e.g., 0, 1 or 3 pages around the answer).
 *   Supports multiple LLMs, including different versions of Llama3 and Phi3.
 *   **Evaluation:**
@@ -44,6 +48,8 @@ The manual being used can be downloaded [here](https://www.kvgportal.com/W_globa
 | gemma2:9b (used only for evaluation)         | 9b                   | 8k           |
 
 <p align="left">
+  <img src="1 Evaluate Machine-Readable Formats for LLMs/1.1 Compare Formats/accuracy_analysis/mean_accuracies_across_all_formats.png" alt="Mean Accuracy Comparison Across all Formats" width="500"/>
+    <br>
   <img src="1 Evaluate Machine-Readable Formats for LLMs/1.1 Compare Formats/accuracy_analysis/accuracy_plot_phi3_mini-128k.png" alt="Accuracy Comparison for phi3 mini-128k" width="500"/>
   <br>
   <img src="1 Evaluate Machine-Readable Formats for LLMs/1.1 Compare Formats/accuracy_analysis/accuracy_plot_phi3_medium-128k.png" alt="Accuracy Comparison for phi3 medium-128k" width="500"/>
@@ -55,4 +61,3 @@ The manual being used can be downloaded [here](https://www.kvgportal.com/W_globa
   <img src="1 Evaluate Machine-Readable Formats for LLMs/1.1 Compare Formats/accuracy_analysis/accuracy_plot_llama3.1.png" alt="Accuracy Comparison for llama3.1" width="500"/>
   <br>
 </p>
-
