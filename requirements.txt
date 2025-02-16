@@ -1,5 +1,0 @@
-conda create --name langchain
-conda activate langchain
-conda install conda-forge::pypdf 
-conda install conda-forge::langchain 
-conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia

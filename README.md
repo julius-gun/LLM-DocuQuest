@@ -1,7 +1,6 @@
 <p align="center">
   <img src="assets/Llama-DocuQuest.jpg" alt="LLM-DocuQuest" width="300"/>
   <br>
-  <small style="font-size: 7px;">Image generated using Bing DALL-E 3</small>
 </p>
 
 
@@ -16,15 +15,11 @@ This repository explores the capabilities of large language models (LLMs) in han
 - **Multiple Pages Context**
 - **Automatic Q&A**: Generate questions and answers from PDFs using Ollama and Gemini. -->
 ### Goal 1: Evaluate Machine-Readable Formats
-- **Test Set**: Analyze 
-    - [44 general question-answer pairs](/questions_answers/question_answer_pairs.json).
-    - [20 unanswerable question-answer pairs](/questions_answers/question_answers_unanswerable.json)
-    - [10 question-answer pairs regarding tables](/questions_answers/question_answers_tables.json)
 - **Format Comparison**: Evaluate PDF, Markdown, CSV, XML, YAML, and JSON with various LLMs.
 - **Zero-Shot Learning**: Assess model performance without prior fine-tuning.
 <!-- - **Format Suitability**: Identify the best format for each model based on response accuracy. -->
 
-See [Evaluate Machine-Readable Formats](GOAL_1.md) for results.
+See [this repository for results and code](GOAL_1.md) for results.
 
 ### Goal 2: Compare RAG Methods for Manuals
 - **Full Text Application**: Apply RAG methods to entire manuals.
