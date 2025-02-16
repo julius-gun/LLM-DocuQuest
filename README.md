@@ -19,7 +19,7 @@ This repository explores the capabilities of large language models (LLMs) in han
 - **Zero-Shot Learning**: Assess model performance without prior fine-tuning.
 <!-- - **Format Suitability**: Identify the best format for each model based on response accuracy. -->
 
-See [this repository for results and code](GOAL_1.md) for results.
+See [this repository for results and code](https://github.com/julius-gun/MultiFormatLLMTester/tree/main).
 
 ### Goal 2: Compare RAG Methods for Manuals
 - **Full Text Application**: Apply RAG methods to entire manuals.
